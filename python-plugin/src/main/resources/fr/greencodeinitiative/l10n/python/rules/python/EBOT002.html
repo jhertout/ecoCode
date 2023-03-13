@@ -1,0 +1,11 @@
+<p>Do not use copy method of the copy library for deep copy
+<p>Prefer using array.copy(), it will do the same but is twice more energy efficient</p>
+</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+    copy.deepcopy(arr)
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+    arr.copy()
+</pre>

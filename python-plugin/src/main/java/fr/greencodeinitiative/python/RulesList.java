@@ -24,12 +24,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import fr.greencodeinitiative.python.checks.AvoidFullSQLRequest;
-import fr.greencodeinitiative.python.checks.AvoidGettersAndSetters;
-import fr.greencodeinitiative.python.checks.AvoidGlobalVariableInFunctionCheck;
-import fr.greencodeinitiative.python.checks.AvoidSQLRequestInLoop;
-import fr.greencodeinitiative.python.checks.AvoidTryCatchFinallyCheck;
-import fr.greencodeinitiative.python.checks.NoFunctionCallWhenDeclaringForLoop;
+import fr.greencodeinitiative.python.checks.*;
 import org.sonar.plugins.python.api.PythonCheck;
 
 public final class RulesList {
@@ -51,7 +46,9 @@ public final class RulesList {
                 AvoidSQLRequestInLoop.class,
                 AvoidTryCatchFinallyCheck.class,
                 NoFunctionCallWhenDeclaringForLoop.class,
-                AvoidGettersAndSetters.class
+                AvoidGettersAndSetters.class,
+                AvoidCopyLibCopy.class,
+                AvoidCopyLibDeepcopy.class
         ));
     }
 
