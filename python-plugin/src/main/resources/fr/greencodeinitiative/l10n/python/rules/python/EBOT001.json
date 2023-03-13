@@ -1,5 +1,5 @@
 {
-  "title": "Avoid using method copy of the copy library",
+  "title": "Avoid using function copy of the copy module",
   "type": "CODE_SMELL",
   "status": "ready",
   "remediation": {

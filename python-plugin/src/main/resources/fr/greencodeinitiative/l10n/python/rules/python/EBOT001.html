@@ -1,4 +1,4 @@
-<p>Do not use copy method of the copy library for shallow copy
+<p>Do not use copy function of the copy module for shallow copy
 <p>Prefer using array.view(), it will do the same but is twice more energy efficient</p>
 </p>
 <h2>Noncompliant Code Example</h2>
@@ -7,5 +7,5 @@
 </pre>
 <h2>Compliant Solution</h2>
 <pre>
-    arr.copy()
+    arr.view()
 </pre>
