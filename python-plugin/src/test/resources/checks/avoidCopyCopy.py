@@ -32,16 +32,19 @@ list_copy3 = copy.copy(list3) # Noncompliant {{Avoid using Lib/copy.copy(x)}}
 
 array1 = array.array('i', [1, 2, 3])
 array_copy1 = copy.copy(array1) # NO issue
+array_copy2 = copy.copy(array.array('i', [1, 2, 3])) # NO issue
 
 # Object copy
 
 object1 = "test"
-object_copy1 = copy.copy(object1) # NO issue
+object_copy11 = copy.copy(object1) # NO issue
+object_copy12 = copy.copy("test") # NO issue
 
 object2 = TestObject("test 1", "test 2")
-object_copy2 = copy.copy(object2) # NO issue
+object_copy21 = copy.copy(object2) # NO issue
+object_copy22 = copy.copy(TestObject("test 1", "test 2")) # NO issue
 
 # Other copy()
 
 object3 = TestObject("test 1", "test 2")
-#other_list = object3.copy([1, 2]) # NO issue
+other_list = object3.copy([1, 2]) # NO issue
