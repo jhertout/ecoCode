@@ -1,11 +1,17 @@
-<p>Do not use copy function of the copy module for deep copy
-<p>Prefer using array.copy(), it will do the same but is twice more energy efficient</p>
+<p>Using <code>copy.deepcopy(x)</code> of <code>module copy</code> to perform a
+    <b>shallow</b> copy of a list is not energy efficient.</p>
+<p>Prefer the usage of <code>list.copy()</code> which is more energy friendly in
+    that case. If a deep copy is still required, keep <code>copy.deepcopy(x)</code>.
 </p>
 <h2>Noncompliant Code Example</h2>
 <pre>
-    copy.deepcopy(arr)
+    import copy
+
+    my_list = [1, 2, 3, 4]
+    list_copy = copy.deepcopy(my_list)
 </pre>
 <h2>Compliant Solution</h2>
 <pre>
-    arr.copy()
+    my_list = [1, 2, 3, 4]
+    list_copy = my_list.copy()
 </pre>

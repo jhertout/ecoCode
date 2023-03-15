@@ -10,7 +10,10 @@ class TestObject():
     def __str__(self):
         return self.prop1 + " " +  self.prop2
 
-    def listFromObject(self):
+    def listFromObject(self) -> list:
+        return [self.prop1, self.prop2]
+
+    def untypedlistFromObject(self) :
         return [self.prop1, self.prop2]
 
     def copy(self, list):
@@ -20,13 +23,16 @@ class TestObject():
 # List copy
 
 list1 = [1, 2, [3, 4], 5]
-list_copy1 = copy.copy(list1) # Noncompliant {{Avoid using Lib/copy.copy(x)}}
+list_copy1 = copy.copy(list1) # Noncompliant {{Using `copy.copy(x)` of `module copy` to perform a shallow copy of a list is not energy efficient.}}
 
 list2 = [TestObject(1, "test1"), TestObject(2, "test2")]
-list_copy2 = copy.copy(list2) # Noncompliant {{Avoid using Lib/copy.copy(x)}}
+list_copy2 = copy.copy(list2) # Noncompliant {{Using `copy.copy(x)` of `module copy` to perform a shallow copy of a list is not energy efficient.}}
 
 list3 = TestObject(1, "test1").listFromObject()
-list_copy3 = copy.copy(list3) # Noncompliant {{Avoid using Lib/copy.copy(x)}}
+list_copy3 = copy.copy(list3) # Noncompliant {{Using `copy.copy(x)` of `module copy` to perform a shallow copy of a list is not energy efficient.}}
+
+list4 = TestObject(1, "test1").untypedlistFromObject()
+list_copy4 = copy.copy(list4) # TODO {the return type of the method is not defined.. so type is ANY}
 
 # Array copy
 
@@ -34,7 +40,7 @@ array1 = array.array('i', [1, 2, 3])
 array_copy1 = copy.copy(array1) # NO issue
 array_copy2 = copy.copy(array.array('i', [1, 2, 3])) # NO issue
 
-# Object copy
+## Object copy
 
 object1 = "test"
 object_copy11 = copy.copy(object1) # NO issue

@@ -1,11 +1,15 @@
-<p>Do not use copy function of the copy module for shallow copy
-<p>Prefer using array.view(), it will do the same but is twice more energy efficient</p>
-</p>
+<p>Using <code>copy.copy(x)</code> of <code>module copy</code> to perform a shallow
+    copy of a list is not energy efficient.</p>
+<p>Prefer the usage of <code>list.copy()</code> which is more energy friendly.</p>
 <h2>Noncompliant Code Example</h2>
 <pre>
-    copy.copy(arr)
+    import copy
+
+    my_list = [1, 2, [3, 4], 5]
+    list_copy = copy.copy(my_list)
 </pre>
 <h2>Compliant Solution</h2>
 <pre>
-    arr.view()
+    my_list = [1, 2, [3, 4], 5]
+    list_copy = my_list.copy()
 </pre>

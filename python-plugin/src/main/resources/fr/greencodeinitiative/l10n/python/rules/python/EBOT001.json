@@ -1,5 +1,5 @@
 {
-  "title": "Avoid using function copy of the copy module",
+  "title": "List Shallow Copy - Module copy",
   "type": "CODE_SMELL",
   "status": "ready",
   "remediation": {
@@ -12,5 +12,5 @@
     "environment",
     "ecocode"
   ],
-  "defaultSeverity": "Major"
+  "defaultSeverity": "Minor"
 }

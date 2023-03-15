@@ -47,8 +47,8 @@ public final class RulesList {
                 AvoidTryCatchFinallyCheck.class,
                 NoFunctionCallWhenDeclaringForLoop.class,
                 AvoidGettersAndSetters.class,
-                AvoidCopyLibCopy.class,
-                AvoidCopyLibDeepcopy.class
+                ListShallowCopyModuleCopy.class,
+                ListDeepCopyWarning.class
         ));
     }
 
