@@ -32,7 +32,7 @@ public class PythonRulesDefinitionTest {
         RulesDefinition.Context context = new RulesDefinition.Context();
         pythonRulesDefinition.define(context);
         assertThat(context.repositories()).hasSize(1).extracting("key").containsExactly(REPOSITORY_KEY);
-        assertThat(context.repositories().get(0).rules()).hasSize(8);
-        assertThat(RulesList.getChecks()).hasSize(8);
+        assertThat(context.repositories().get(0).rules()).hasSize(9);
+        assertThat(RulesList.getChecks()).hasSize(9);
     }
 }

@@ -1,0 +1,16 @@
+{
+  "title": "List Append In Loop",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "20min"
+  },
+  "tags": [
+    "eco-conception",
+    "optimized-api",
+    "environment",
+    "ecocode"
+  ],
+  "defaultSeverity": "Minor"
+}

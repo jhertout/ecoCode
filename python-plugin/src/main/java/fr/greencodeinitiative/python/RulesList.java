@@ -48,7 +48,8 @@ public final class RulesList {
                 NoFunctionCallWhenDeclaringForLoop.class,
                 AvoidGettersAndSetters.class,
                 ListShallowCopyModuleCopy.class,
-                ListDeepCopyWarning.class
+                ListDeepCopyWarning.class,
+                ListAppendInLoop.class
         ));
     }
 

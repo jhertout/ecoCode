@@ -1,0 +1,15 @@
+<p>Using <code>list.append(x)</code> within a loop is not energy efficient.</p>
+<p>Prefer the usage of <code>list.copy()</code> which is more energy friendly.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+    list = [1, 2, 3, 4, 5]
+    new_list = []
+    for item in list:
+        new_list.append(item)
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+    list = [1, 2, 3, 4, 5]
+    new_list = []
+    new_list = list.copy()
+</pre>
