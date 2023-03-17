@@ -15,7 +15,7 @@ import org.sonar.plugins.python.api.tree.Tree;
         tags = {"bug"})
 public class ListComprehension extends PythonSubscriptionCheck {
 
-    protected static final String MESSAGE_RULE = "Using a list comprehension not energy efficient.";
+    protected static final String MESSAGE_RULE = "Using a list comprehension is not energy efficient.";
 
     @Override
     public void initialize(Context context) {
