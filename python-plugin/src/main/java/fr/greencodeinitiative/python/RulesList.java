@@ -49,7 +49,8 @@ public final class RulesList {
                 AvoidGettersAndSetters.class,
                 ListShallowCopyModuleCopy.class,
                 ListDeepCopyWarning.class,
-                ListAppendInLoop.class
+                ListAppendInLoop.class,
+                ListComprehension.class
         ));
     }
 
