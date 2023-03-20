@@ -12,16 +12,24 @@ import org.sonar.plugins.python.api.tree.*;
 import java.util.*;
 
 @Rule(
-        key = "EBOT002",
-        name = "Developpement",
+        key = ListDeepCopyWarning.RULE_KEY,
+        name = ListDeepCopyWarning.RULE_NAME,
         description = ListDeepCopyWarning.MESSAGE_RULE,
         priority = Priority.MAJOR,
-        tags = {"bug"})
+        tags = {"bug",
+                "eco-design",
+                "optimized-api",
+                "environment",
+                "ecocode"})
 public class ListDeepCopyWarning extends PythonSubscriptionCheck {
 
     private static final List<String> COPY_LIB = Arrays.asList("copy");
 
     protected static final String MESSAGE_RULE = "Be sure a deep copy is required, using `copy.deepcopy(x)` of `module copy` to perform a simple shallow copy of a list is not energy efficient.";
+
+    public static final String RULE_KEY = "EBOT002";
+
+    public static final String RULE_NAME = "List Deep Copy Warning";
 
     protected static final String FUNCTION_TO_CHECK = "deepcopy";
     protected static final String MODULE_TO_CHECK = "copy";
@@ -33,7 +41,6 @@ public class ListDeepCopyWarning extends PythonSubscriptionCheck {
      * Register ARG_LIST NODE to check if the first argument of the function is a list
      *
      * @param context The context of the analyser
-     *
      */
     @Override
     public void initialize(Context context) {
@@ -123,9 +130,9 @@ public class ListDeepCopyWarning extends PythonSubscriptionCheck {
                                     }
                                 }
                             }
-                        /*
-                         * Check the argument, is it an Expression ?
-                         */
+                            /*
+                             * Check the argument, is it an Expression ?
+                             */
                         } else if (regularArgument.expression().is(Tree.Kind.CALL_EXPR)) {
                             /*
                              * Check Parent recursively to check if the expression return a list
@@ -148,9 +155,9 @@ public class ListDeepCopyWarning extends PythonSubscriptionCheck {
     /**
      * Recursive Method checking the type of the argument of the function
      *
-     * @param ctx The context that subscribes to the ARG_LIST node
+     * @param ctx        The context that subscribes to the ARG_LIST node
      * @param expression the expression that needs to be reported
-     * @param tree the tree containing the argument member
+     * @param tree       the tree containing the argument member
      */
     private void checkParent(SubscriptionContext ctx, Tree expression, Tree tree) {
         if (tree.parent().is(Tree.Kind.ASSIGNMENT_STMT)) {
@@ -158,7 +165,7 @@ public class ListDeepCopyWarning extends PythonSubscriptionCheck {
             if (assignmentStatement.assignedValue().type().mustBeOrExtend("list")) {
                 ctx.addIssue(expression, MESSAGE_RULE);
             }
-        }else{
+        } else {
             checkParent(ctx, expression, tree.parent());
         }
     }

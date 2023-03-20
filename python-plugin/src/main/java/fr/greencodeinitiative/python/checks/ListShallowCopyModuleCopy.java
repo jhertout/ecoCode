@@ -12,16 +12,24 @@ import org.sonar.plugins.python.api.tree.*;
 import java.util.*;
 
 @Rule(
-        key = "EBOT001",
-        name = "Developpement",
+        key = ListShallowCopyModuleCopy.RULE_KEY,
+        name = ListShallowCopyModuleCopy.RULE_NAME,
         description = ListShallowCopyModuleCopy.MESSAGE_RULE,
         priority = Priority.MAJOR,
-        tags = {"bug"})
+        tags = {"bug",
+                "eco-design",
+                "optimized-api",
+                "environment",
+                "ecocode"})
 public class ListShallowCopyModuleCopy extends PythonSubscriptionCheck {
 
     private static final List<String> COPY_LIB = Arrays.asList("copy");
 
     protected static final String MESSAGE_RULE = "Using `copy.copy(x)` of `module copy` to perform a shallow copy of a list is not energy efficient.";
+
+    public static final String RULE_NAME = "List Shallow Copy - Module copy";
+
+    public static final String RULE_KEY = "EBOT001";
 
     protected static final String FUNCTION_TO_CHECK = "copy";
     protected static final String MODULE_TO_CHECK = "copy";

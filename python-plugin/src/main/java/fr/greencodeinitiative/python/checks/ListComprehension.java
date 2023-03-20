@@ -8,14 +8,24 @@ import org.sonar.plugins.python.api.tree.ComprehensionExpression;
 import org.sonar.plugins.python.api.tree.Tree;
 
 @Rule(
-        key = "EBOT004",
-        name = "Developpement",
+        key = ListComprehension.RULE_KEY,
+        name = ListComprehension.RULE_NAME,
         description = ListComprehension.MESSAGE_RULE,
         priority = Priority.MAJOR,
-        tags = {"bug"})
+        tags = {"bug",
+                "eco-design",
+                "optimized-api",
+                "environment",
+                "ecocode"})
+
 public class ListComprehension extends PythonSubscriptionCheck {
 
     protected static final String MESSAGE_RULE = "Using a list comprehension is not energy efficient.";
+
+    public static final String RULE_KEY = "EBOT004";
+
+    public static final String RULE_NAME = "List Comprehension";
+
 
     @Override
     public void initialize(Context context) {

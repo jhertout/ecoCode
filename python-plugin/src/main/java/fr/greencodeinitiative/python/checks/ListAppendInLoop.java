@@ -9,12 +9,20 @@ import org.sonar.plugins.python.api.symbols.Usage;
 import org.sonar.plugins.python.api.tree.*;
 
 @Rule(
-        key = "EBOT003",
-        name = "Developpement",
+        key = ListAppendInLoop.RULE_KEY,
+        name = ListAppendInLoop.RULE_NAME,
         description = ListAppendInLoop.MESSAGE_RULE,
         priority = Priority.MAJOR,
-        tags = {"bug"})
+        tags = {"bug",
+                "eco-design",
+                "optimized-api",
+                "environment",
+                "ecocode"})
 public class ListAppendInLoop extends PythonSubscriptionCheck {
+
+    public static final String RULE_KEY = "EBOT003";
+
+    public static final String RULE_NAME = "List Append In Loop";
 
     protected static final String MESSAGE_RULE = "Using `list.append(x)` within a loop is not energy efficient.";
 
