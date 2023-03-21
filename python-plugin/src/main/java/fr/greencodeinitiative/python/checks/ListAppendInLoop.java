@@ -24,7 +24,7 @@ public class ListAppendInLoop extends PythonSubscriptionCheck {
 
     public static final String RULE_NAME = "List Append In Loop";
 
-    protected static final String MESSAGE_RULE = "Using `list.append(x)` within a loop is not energy efficient.";
+    protected static final String MESSAGE_RULE = "Using `list.append(x)` within a loop to copy a list is not energy efficient.";
 
     protected static final String FUNCTION_TO_CHECK = "append";
 

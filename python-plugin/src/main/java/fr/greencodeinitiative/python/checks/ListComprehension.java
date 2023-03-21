@@ -20,7 +20,7 @@ import org.sonar.plugins.python.api.tree.Tree;
 
 public class ListComprehension extends PythonSubscriptionCheck {
 
-    protected static final String MESSAGE_RULE = "Using a list comprehension is not energy efficient.";
+    protected static final String MESSAGE_RULE = "Using a list comprehension to copy a list is not energy efficient.";
 
     public static final String RULE_KEY = "EBOT004";
 

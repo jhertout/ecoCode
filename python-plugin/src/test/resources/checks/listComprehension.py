@@ -23,9 +23,9 @@ class TestObject():
         self.prop1 = prop1
 
 list42 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-list43 = [item for item in list42] # Noncompliant {{Using a list comprehension is not energy efficient.}}
+list43 = [item for item in list42] # Noncompliant {{Using a list comprehension to copy a list is not energy efficient.}}
 
-object = TestObject([item for item in list42]) # Noncompliant {{Using a list comprehension is not energy efficient.}}
+object = TestObject([item for item in list42]) # Noncompliant {{Using a list comprehension to copy a list is not energy efficient.}}
 
 list(item for item in list42) # NO ISSUE
 

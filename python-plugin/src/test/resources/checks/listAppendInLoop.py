@@ -25,7 +25,7 @@ list1 = [1, 2, [3, 4], 5]
 
 new_list = []
 for item in [0,1,2,3,4,5,6,7,8,9]:
-    new_list.append(item.tolist())# Noncompliant {{Using `list.append(x)` within a loop is not energy efficient.}}
+    new_list.append(item.tolist())# Noncompliant {{Using `list.append(x)` within a loop to copy a list is not energy efficient.}}
 
 testObj = TestObject()
 for item in [0,1,2,3,4,5,6,7,8,9]:
@@ -33,7 +33,7 @@ for item in [0,1,2,3,4,5,6,7,8,9]:
 
 new_list = []
 while True:
-    new_list.append([0,1,2,3,4,5,6,7,8,9])# Noncompliant {{Using `list.append(x)` within a loop is not energy efficient.}}
+    new_list.append([0,1,2,3,4,5,6,7,8,9])# Noncompliant {{Using `list.append(x)` within a loop to copy a list is not energy efficient.}}
 
 
 
