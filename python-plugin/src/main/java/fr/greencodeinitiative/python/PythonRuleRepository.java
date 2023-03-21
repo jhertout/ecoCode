@@ -34,11 +34,9 @@ import java.util.*;
 public class PythonRuleRepository implements RulesDefinition, PythonCustomRuleRepository {
 
     public static final String LANGUAGE = "py";
-    public static final String PROFILE_NAME = "ecoCode";
     public static final String NAME = "Green Code Initiative";
     public static final String RESOURCE_BASE_PATH = "/fr/greencodeinitiative/l10n/python/rules/python/";
     public static final String REPOSITORY_KEY = "gci-python";
-    public static final String PROFILE_PATH = "fr/greencodeinitiative/l10n/python/rules/python/ecocode_python_profile.json";
 
     @Override
     public void define(Context context) {
@@ -79,11 +77,7 @@ public class PythonRuleRepository implements RulesDefinition, PythonCustomRuleRe
 
     @Override
     public List<Class> checkClasses() {
-        return getChecks();
-    }
-
-    public static List<Class> getChecks() {
-        List<Class<?>> checks = Arrays.asList(
+        return Arrays.asList(
                 AvoidGettersAndSetters.class,
                 AvoidGlobalVariableInFunctionCheck.class,
                 AvoidSQLRequestInLoop.class,
@@ -95,9 +89,7 @@ public class PythonRuleRepository implements RulesDefinition, PythonCustomRuleRe
                 ListAppendInLoop.class,
                 ListComprehension.class
         );
-        return Collections.unmodifiableList(checks);
     }
-
 
     private String loadResource(String path) {
         URL resource = getClass().getResource(path);
