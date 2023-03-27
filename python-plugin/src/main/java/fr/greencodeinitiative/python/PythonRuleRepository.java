@@ -89,7 +89,8 @@ public class PythonRuleRepository implements RulesDefinition, PythonCustomRuleRe
                 ListAppendInLoop.class,
                 ListComprehension.class,
                 StringConcatenationFormatCheck.class,
-                StringConcatenationModuloCheck.class
+                StringConcatenationModuloCheck.class,
+                StringConcatenationJoinCheck.class
         );
     }
 
