@@ -28,7 +28,7 @@ public class StringConcatenationFormatCheck extends PythonSubscriptionCheck {
     public static final String RULE_NAME = "String Concatenation Format";
 
     protected static final String FUNCTION_TO_CHECK = "format";
-    protected static final String MODULE_TO_CHECK = "str";
+    protected static final String BUILT_IN_TYPE_STRING = "str";
 
     /**
      * Register CALL_EXPR NODE to check if the function `str.format()` is present
@@ -41,24 +41,24 @@ public class StringConcatenationFormatCheck extends PythonSubscriptionCheck {
     }
 
     /**
-     * parse the CALL_EXPR NODE to check if a the str.format() function is called
+     * Parse the CALL_EXPR NODE to check if `str.format()` function is called
      *
      * @param ctx The context of the analyser
      */
     public void visitNodeString(SubscriptionContext ctx) {
         CallExpression callExpression = (CallExpression) ctx.syntaxNode();
-        if (TreeHelper.isMethodCalled((callExpression), MODULE_TO_CHECK, FUNCTION_TO_CHECK)) {
+        if (TreeHelper.isMethodCalled((callExpression), BUILT_IN_TYPE_STRING, FUNCTION_TO_CHECK)) {
             if (callExpression.callee().is(Tree.Kind.NAME)) {
                 checkVariableAssignmentType(ctx, callExpression, (QualifiedExpression) callExpression.callee());
             } else if (callExpression.callee().is(Tree.Kind.QUALIFIED_EXPR)) {
-                //Check Parent recursively to check if the expression return a string
-                QualifiedExpression qE = (QualifiedExpression) callExpression.callee();
-                if (qE.type().mustBeOrExtend("str")) {
+                //Check Parent recursively to check if the expression returns a string
+                QualifiedExpression qualifiedExpression = (QualifiedExpression) callExpression.callee();
+                if (qualifiedExpression.type().mustBeOrExtend(BUILT_IN_TYPE_STRING)) {
                     ctx.addIssue(callExpression, MESSAGE_RULE);
                 } else {
-                    if (qE.qualifier().is(Tree.Kind.NAME)) {
-                        checkVariableAssignmentType(ctx, callExpression, qE);
-                    } else if (qE.qualifier().is(Tree.Kind.STRING_LITERAL)) {
+                    if (qualifiedExpression.qualifier().is(Tree.Kind.NAME)) {
+                        checkVariableAssignmentType(ctx, callExpression, qualifiedExpression);
+                    } else if (qualifiedExpression.qualifier().is(Tree.Kind.STRING_LITERAL)) {
                         ctx.addIssue(callExpression, MESSAGE_RULE);
                     }
                 }
@@ -75,16 +75,16 @@ public class StringConcatenationFormatCheck extends PythonSubscriptionCheck {
      *
      * @param ctx            the subscription context of the analyser
      * @param callExpression the expression to report
-     * @param qE             the caller of the method
+     * @param qualifiedExpression             the caller of the method
      */
-    private void checkVariableAssignmentType(SubscriptionContext ctx, CallExpression callExpression, QualifiedExpression qE) {
-        Name qualifier = (Name) qE.qualifier();
+    private void checkVariableAssignmentType(SubscriptionContext ctx, CallExpression callExpression, QualifiedExpression qualifiedExpression) {
+        Name qualifier = (Name) qualifiedExpression.qualifier();
         if (qualifier.isVariable()) {
             for (Usage usage : qualifier.symbol().usages()) {
                 if (usage.kind().equals(Usage.Kind.ASSIGNMENT_LHS)) {
                     //here qualifier is the caller
 
-                    //this methode needs a callExpression To Report (the parent method)
+                    //this methode needs a callExpression to report (the parent method)
                     checkParentTypeRecursively(ctx, callExpression, usage.tree());
                 }
             }
@@ -92,10 +92,10 @@ public class StringConcatenationFormatCheck extends PythonSubscriptionCheck {
     }
 
     /**
-     * If the caller type is not defined
-     * check if it is a String
-     * if it is a variable
-     * check if the assigned type is a string
+     * If the caller type is not defined:
+     * - check if it is a String
+     * - if it is a variable
+     *   - check if the assigned type is a string
      *
      * @param ctx            the subscription context of the parser
      * @param callExpression the expression to report
@@ -104,18 +104,18 @@ public class StringConcatenationFormatCheck extends PythonSubscriptionCheck {
         if (TreeHelper.getMethodName(callExpression).equals(FUNCTION_TO_CHECK)) {
             //here the method name is called, we need to check if a string is the caller
             if (callExpression.callee().is(Tree.Kind.QUALIFIED_EXPR)) {
-                QualifiedExpression qE = (QualifiedExpression) callExpression.callee();
-                if (qE.qualifier().type().mustBeOrExtend("str")) {
+                QualifiedExpression qualifiedExpression = (QualifiedExpression) callExpression.callee();
+                if (qualifiedExpression.qualifier().type().mustBeOrExtend(BUILT_IN_TYPE_STRING)) {
                     ctx.addIssue(callExpression, MESSAGE_RULE);
-                } else if (qE.qualifier().is(Tree.Kind.NAME)) {
-                    checkVariableAssignmentType(ctx, callExpression, qE);
+                } else if (qualifiedExpression.qualifier().is(Tree.Kind.NAME)) {
+                    checkVariableAssignmentType(ctx, callExpression, qualifiedExpression);
                 }
             }
         }
     }
 
     /**
-     * Recusive method to check if an assignment of the varibale is a String
+     * Recursive method to check if an assignment of the variable is a String
      *
      * @param ctx        the subscription context of the parser
      * @param expression the expression to report
@@ -124,7 +124,7 @@ public class StringConcatenationFormatCheck extends PythonSubscriptionCheck {
     private void checkParentTypeRecursively(SubscriptionContext ctx, Tree expression, Tree tree) {
         if (tree.is(Tree.Kind.ASSIGNMENT_STMT)) {
             AssignmentStatement assignmentStatement = (AssignmentStatement) tree;
-            if (assignmentStatement.assignedValue().type().mustBeOrExtend("str")) {
+            if (assignmentStatement.assignedValue().type().mustBeOrExtend(BUILT_IN_TYPE_STRING)) {
                 ctx.addIssue(expression, MESSAGE_RULE);
             }
         } else {
