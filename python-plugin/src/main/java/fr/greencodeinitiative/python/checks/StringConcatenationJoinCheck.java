@@ -40,7 +40,8 @@ public class StringConcatenationJoinCheck extends PythonSubscriptionCheck {
     }
 
     /**
-     * parse the CALL_EXPR NODE to check if a the str.join() function is called
+     * Parse the CALL_EXPR NODE to check if a the str.join() function is called. Then
+     * we throw an issue only if we have an empty string calling join(): "".join()
      *
      * @param ctx The context of the analyser
      */
@@ -49,14 +50,14 @@ public class StringConcatenationJoinCheck extends PythonSubscriptionCheck {
         //Check if the function str.join is called
         if (TreeHelper.isMethodCalled((callExpression), MODULE_TO_CHECK, FUNCTION_TO_CHECK)) {
             if (callExpression.callee().is(Tree.Kind.QUALIFIED_EXPR)) {
-                QualifiedExpression qE = (QualifiedExpression) callExpression.callee();
+                QualifiedExpression qualifiedExpression = (QualifiedExpression) callExpression.callee();
                 //check if the caller of the join function is a String
-                if (qE.qualifier().is(Tree.Kind.STRING_LITERAL)) {
-                    StringLiteral strL = (StringLiteral) qE.qualifier();
-                    if (!strL.stringElements().isEmpty()) {
-                        if (strL.stringElements().get(0).is(Tree.Kind.STRING_ELEMENT)) {
+                if (qualifiedExpression.qualifier().is(Tree.Kind.STRING_LITERAL)) {
+                    StringLiteral stringLiteral = (StringLiteral) qualifiedExpression.qualifier();
+                    if (!stringLiteral.stringElements().isEmpty()) {
+                        if (stringLiteral.stringElements().get(0).is(Tree.Kind.STRING_ELEMENT)) {
                             //check if the caller of the join function is an Empty String
-                            StringElement element = strL.stringElements().get(0);
+                            StringElement element = stringLiteral.stringElements().get(0);
                             if (element.value().replaceAll("^\"|\"$", "").isEmpty()) {
                                 //here we have "".join()
                                 ctx.addIssue(callExpression, MESSAGE_RULE);
@@ -66,7 +67,7 @@ public class StringConcatenationJoinCheck extends PythonSubscriptionCheck {
                 }
             }
         } else {
-            //if I cannot check the caller type
+            // If I cannot check the caller type
             // I will not be able to determine it's value and therefore if it is empty
         }
     }
