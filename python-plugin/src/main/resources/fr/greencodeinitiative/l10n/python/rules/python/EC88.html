@@ -1,0 +1,59 @@
+<p>
+    Python is an interpreted, high-level, general-purpose programming language. One of its main advantages is its flexibility and dynamic nature. However, this flexibility comes at a cost in terms of performance, especially in memory usage. One way to optimize memory usage is by using the <code>__slots__</code> attribute in class definitions.
+</p>
+
+<p>
+    By default, when we define a class in Python, it uses a <code>__dict__</code> to store its attributes and methods. This means that every instance of the class has a <strong>dictionary</strong> to store its data, which can be quite memory-intensive.
+</p>
+
+<p>
+    By using <code>__slots__</code>, we can explicitly declare the data members of the class, allowing Python to allocate memory for each instance of the class more efficiently. When we use <code>__slots__</code>, Python creates a tuple to store the attributes of the class instead of a dictionary, reducing memory usage.
+</p>
+
+<p>
+    This optimization is especially important for classes that are going to be instantiated multiple times or have a large number of instances, as it can significantly reduce memory consumption. It is also useful when working with large datasets or building memory-intensive applications.
+</p>
+
+<p>
+    In the case of classes with the <code>@dataclass</code> decorator, which automatically generates boilerplate code for classes, we can also use <code>__slots__</code> to optimize memory usage. By default, <code>@dataclass</code> uses the same <code>__dict__</code> approach for attribute storage. However, by setting the <code>slots</code> parameter to <code>True</code>, we can use the tuple-based attribute storage and reduce memory usage.
+</p>
+
+<p>
+    Here is the default implementation of the <code>@dataclass</code> decorator:
+</p>
+
+<pre>
+    <code>
+        @dataclasses.dataclass(*, init=True, repr=True, eq=True, order=False, unsafe_hash=False, frozen=False, match_args=True, kw_only=False, slots=False, weakref_slot=False)
+    </code>
+</pre>
+
+<p>
+    Using <code>__slots__</code> can be an effective way to optimize memory usage in Python classes and improve the performance of memory-intensive applications. It is a minor remediation cost to add <code>__slots__</code> in class definitions and can have significant benefits in terms of memory efficiency.
+</p>
+
+<pre>
+    <code>
+        # Non-compliant
+        class MyClass:
+            def __init__(self, a, b, c):
+                self.a = a
+                self.b = b
+                self.c = c
+
+        # Compliant
+        class MySlottedClass:
+            __slots__ = ('a', 'b', 'c')
+            def __init__(self, a, b, c):
+                self.a = a
+                self.b = b
+                self.c = c
+
+        # Compliant
+        @dataclass(slots=True)
+        class MyDataClassSlottedClass:
+            a: int
+            b: int
+            c: int
+    </code>
+</pre>
