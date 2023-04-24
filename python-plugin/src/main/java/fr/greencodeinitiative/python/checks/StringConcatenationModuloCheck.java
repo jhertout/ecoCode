@@ -34,38 +34,34 @@ public class StringConcatenationModuloCheck extends PythonSubscriptionCheck {
      */
     @Override
     public void initialize(Context context) {
-        context.registerSyntaxNodeConsumer(Tree.Kind.EXPRESSION_STMT, this::visitNodeString);
+        context.registerSyntaxNodeConsumer(Tree.Kind.MODULO, this::moduloCheck);
     }
 
     /**
-     * Check the expression.
-     * If it is a modulo expression:
+     * Check the modulo expression.
      * - Check that the left operand is a string
      * - Check that the right operand is a tuple OR a string
      *
-     * @param ctx The context that subscribes to the EXPRESSION_STMT node
+     * @param ctx The context that subscribes to the MODULO node
      */
-    public void visitNodeString(SubscriptionContext ctx) {
-        ExpressionStatement statmnt = (ExpressionStatement) ctx.syntaxNode();
-        if (!statmnt.expressions().isEmpty()) {
-            if (statmnt.expressions().get(0).is(Tree.Kind.MODULO)) {
-                BinaryExpression moduloExpression = (BinaryExpression) statmnt.expressions().get(0);
-                if (moduloExpression.leftOperand().type().mustBeOrExtend("str")) {
-                    //module is called on a string
-                    if (moduloExpression.rightOperand().is(Tree.Kind.TUPLE)) {
-                        //Python String Interpolation with the Percent (%) Operator
-                        ctx.addIssue(moduloExpression, MESSAGE_RULE);
-                    } else if (moduloExpression.rightOperand().type().mustBeOrExtend("str")) {
-                        ctx.addIssue(moduloExpression, MESSAGE_RULE);
-                    } else if (moduloExpression.rightOperand().is(Tree.Kind.STRING_LITERAL)) {
-                        ctx.addIssue(moduloExpression, MESSAGE_RULE);
-                    } else {
-                        // check if the method caller assignment is String
-                        checkRightOperandType(ctx, moduloExpression.rightOperand(),moduloExpression);
-                    }
-                }
+    private void moduloCheck(SubscriptionContext ctx) {
+        BinaryExpression moduloExpression = (BinaryExpression) ctx.syntaxNode();
+        if (moduloExpression.leftOperand().type().mustBeOrExtend("str")) {
+            //module is called on a string
+            if (moduloExpression.rightOperand().is(Tree.Kind.TUPLE)) {
+                //Python String Interpolation with the Percent (%) Operator
+                ctx.addIssue(moduloExpression, MESSAGE_RULE);
+            } else if (moduloExpression.rightOperand().type().mustBeOrExtend("str")) {
+                ctx.addIssue(moduloExpression, MESSAGE_RULE);
+            } else if (moduloExpression.rightOperand().is(Tree.Kind.STRING_LITERAL)) {
+                ctx.addIssue(moduloExpression, MESSAGE_RULE);
+            } else {
+                // check if the method caller assignment is String
+                checkRightOperandType(ctx, moduloExpression.rightOperand(),moduloExpression);
             }
         }
+
+
     }
 
     /**

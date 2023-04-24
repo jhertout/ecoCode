@@ -9,3 +9,8 @@ def return_string() -> str:
 "my string %s" % return_string() # Noncompliant {{Using the modulo operator to perform a string concatenation is not energy efficient.}}
 
 
+print('%s is smaller than %s' % ('one', 'two')) # Noncompliant {{Using the modulo operator to perform a string concatenation is not energy efficient.}}
+
+str3 = '%s%s' % ('one','two') # Noncompliant {{Using the modulo operator to perform a string concatenation is not energy efficient.}}
+
+
