@@ -20,7 +20,7 @@ import org.sonar.plugins.python.api.tree.*;
                 "ecocode"})
 public class StringConcatenationModuloCheck extends PythonSubscriptionCheck {
 
-    public static final String RULE_KEY = "EBOT006";
+    public static final String RULE_KEY = "EC86";
 
     protected static final String MESSAGE_RULE = "Using the modulo operator to perform a string concatenation is not energy efficient.";
 

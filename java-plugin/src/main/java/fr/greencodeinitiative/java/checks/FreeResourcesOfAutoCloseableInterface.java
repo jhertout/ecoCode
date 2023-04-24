@@ -16,14 +16,16 @@ import org.sonar.plugins.java.api.JavaVersion;
 import org.sonar.plugins.java.api.tree.NewClassTree;
 import org.sonar.plugins.java.api.tree.Tree;
 import org.sonar.plugins.java.api.tree.TryStatementTree;
+import org.sonarsource.analyzer.commons.annotations.DeprecatedRuleKey;
 
 
 @Rule(
-        key = "S79",
+        key = "EC79",
         name = "Developpement",
         description = FreeResourcesOfAutoCloseableInterface.MESSAGE_RULE,
         priority = Priority.MINOR,
         tags = {"bug"})
+@DeprecatedRuleKey(repositoryKey = "greencodeinitiative-java", ruleKey = "S79")
 public class FreeResourcesOfAutoCloseableInterface extends IssuableSubscriptionVisitor {
     private final Deque<TryStatementTree> withinTry = new LinkedList<>();
     private final Deque<List<Tree>> toReport = new LinkedList<>();

@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>io.ecocode</groupId>
         <artifactId>ecocode-parent</artifactId>
-        <version>0.3.0-SNAPSHOT</version>
+        <version>1.2.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>ecocode-java-plugin</artifactId>
     <packaging>sonar-plugin</packaging>
 
-    <name>ecoCode Java Sonar Plugin</name>
+    <name>ecoCode - Java language</name>
+    <description>Provides rules to reduce the environmental footprint of your Java programs</description>
+    <url>https://github.com/green-code-initiative/ecoCode/tree/main/java-plugin</url>
 
     <dependencies>
 
@@ -43,12 +44,6 @@
             <version>3.11</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>31.0.1-jre</version>
-        </dependency>
-
         <!-- for security on regex patterns : https://github.com/google/re2j -->
         <dependency>
             <groupId>com.google.re2j</groupId>
@@ -65,12 +60,6 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-migrationsupport</artifactId>
             <scope>test</scope>
         </dependency>
 
@@ -94,10 +83,6 @@
                     <pluginClass>fr.greencodeinitiative.java.JavaPlugin</pluginClass>
                     <sonarLintSupported>true</sonarLintSupported>
                     <sonarQubeMinVersion>${sonarqube.version}</sonarQubeMinVersion>
-                    <!-- TODO : commented because plugin not loaded in SONAR if required version of java plugin is not installed -->
-                    <!-- TODO : check how to resolve it (how to force this version in SonarQube installation) -->
-                    <!-- <requirePlugins>java:${sonarjava.version}</requirePlugins> -->
-                    <basePlugin>java</basePlugin>
                     <jreMinVersion>${java.version}</jreMinVersion>
                 </configuration>
             </plugin>
@@ -244,5 +229,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

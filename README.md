@@ -6,7 +6,7 @@ the project is to provide a list of static code analyzers to highlight code stru
 ecological impact: energy and resources over-consumption, "fatware", shortening terminals' lifespan, etc.
 
 _ecoCode_ is based on evolving catalogs of [good practices](docs/rules), for various technologies. A SonarQube plugin
-then implement these catalogs as rules for scanning your projects.
+then implements these catalogs as rules for scanning your projects.
 
 **Warning**: this is still a very early stage project. Any feedback or contribution will be highly appreciated. Please
 refer to the contribution section.
@@ -54,17 +54,19 @@ JavaScript plugin works differently because it does not use AST. [More informati
 ------------------
 
 You can give a try with a one command docker :
-```
+
+```sh
 docker run -ti --rm \
        -v sq_ecocode_logs:/opt/sonarqube/logs \
        -v sq_ecocode_data:/opt/sonarqube/data \
        -p 9000:9000 \
        --name sonarqube-ecocode ghcr.io/green-code-initiative/sonarqube-ecocode:latest
 ```
-And add the `eco-conception` tagged rules to Quality Profiles.
 
-You can also download each plugin separatly and copy the plugin (jar file) to `$SONAR_INSTALL_DIR/extensions/plugins` and
-restart SonarQube.
+And add the `eco-design` tagged rules to Quality Profiles.
+
+You can also download each plugin separatly and copy the plugin (jar file) to `$SONAR_INSTALL_DIR/extensions/plugins` and restart SonarQube.
+Then you can use different test project repositories (please check `README.md` files inside) to test the environment. Example : [PHP test project](https://github.com/green-code-initiative/ecoCode-php-test-project)
 
 Or you can directly use a [all-in-one docker-compose](INSTALL.md)
 
@@ -80,6 +82,8 @@ Ready to use binaries are available [from GitHub](https://github.com/green-code-
 |------------------|----------------------------|
 | 0.1.+            | SonarQube 8.9.+ LTS to 9.3 |
 | 0.2.+            | SonarQube 9.4.+ LTS to 9.9 |
+| 1.0.+            | SonarQube 9.4.+ LTS to 9.9 |
+| 1.1.+            | SonarQube 9.4.+ LTS to 9.9 |
 
 ☕ Plugin Java part compatibility
 ------------------
@@ -88,6 +92,8 @@ Ready to use binaries are available [from GitHub](https://github.com/green-code-
 |------------------|--------------|
 | 0.1.+            | 11 / 17      |
 | 0.2.+            | 11 / 17      |
+| 1.0.+            | 11 / 17      |
+| 1.1.+            | 11 / 17      |
 
 🤝 Contribution
 ---------------

@@ -60,16 +60,18 @@ import org.sonar.plugins.python.api.tree.UnpackingExpression;
 import org.sonar.plugins.python.api.tree.WhileStatement;
 import org.sonar.plugins.python.api.tree.YieldExpression;
 import org.sonar.plugins.python.api.tree.YieldStatement;
+import org.sonarsource.analyzer.commons.annotations.DeprecatedRuleKey;
 
 @Rule(
         key = AvoidGlobalVariableInFunctionCheck.RULE_KEY,
         name = "Do not call global variables directly inside functions",
         description = AvoidGlobalVariableInFunctionCheck.DESCRIPTION,
         priority = Priority.MINOR,
-        tags = {"bug", "eco-design"})
+        tags = {"bug", "eco-design", "ecocode"})
+@DeprecatedRuleKey(repositoryKey = "gci-python", ruleKey = "D4")
 public class AvoidGlobalVariableInFunctionCheck extends PythonSubscriptionCheck {
 
-    public static final String RULE_KEY = "D4";
+    public static final String RULE_KEY = "EC4";
     public static final String DESCRIPTION = "Use local variable (function/class scope) instead of global variable (application scope)";
 
     private List<String> globalVariables;

@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>io.ecocode</groupId>
         <artifactId>ecocode-parent</artifactId>
-        <version>0.3.0-SNAPSHOT</version>
+        <version>1.2.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>ecocode-php-plugin</artifactId>
     <packaging>sonar-plugin</packaging>
-    <name>ecoCode PHP Sonar Plugin</name>
+
+    <name>ecoCode - PHP language</name>
+    <description>Provides rules to reduce the environmental footprint of your PHP programs</description>
+    <url>https://github.com/green-code-initiative/ecoCode/tree/main/php-plugin</url>
 
     <dependencies>
 
@@ -31,23 +33,18 @@
             <artifactId>sonar-plugin-api-impl</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.sonarsource.analyzer-commons</groupId>
-            <artifactId>sonar-analyzer-commons</artifactId>
-        </dependency>
-
         <!-- for security on regex patterns : https://github.com/google/re2j -->
-        <dependency>
-            <groupId>com.google.re2j</groupId>
-            <artifactId>re2j</artifactId>
-        </dependency>
+        <!-- TODO DDC : in progress because of pb with external dependencies in plugins -->
+<!--        <dependency>-->
+<!--            <groupId>com.google.re2j</groupId>-->
+<!--            <artifactId>re2j</artifactId>-->
+<!--        </dependency>-->
 
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -62,45 +59,46 @@
                     <pluginClass>fr.greencodeinitiative.php.PHPPlugin</pluginClass>
                     <sonarLintSupported>true</sonarLintSupported>
                     <sonarQubeMinVersion>${sonarqube.version}</sonarQubeMinVersion>
-                    <basePlugin>php</basePlugin>
+                    <jreMinVersion>${java.version}</jreMinVersion>
+                    <sonarQubeMinVersion>${sonarqube.version}</sonarQubeMinVersion>
                     <jreMinVersion>${java.version}</jreMinVersion>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <filters>
-                                <filter>
-                                    <artifact>commons-*:*</artifact>
-                                    <excludes>
-                                        <exclude>META-INF/**</exclude>
-                                    </excludes>
-                                </filter>
-                                <filter>
-                                    <artifact>org.*:*</artifact>
-                                    <excludes>
-                                        <exclude>META-INF/**</exclude>
-                                        <exclude>org/sonar/api/batch/sensor/**</exclude>
-                                    </excludes>
-                                </filter>
-                                <filter>
-                                    <artifact>com.*:*</artifact>
-                                    <excludes>
-                                        <exclude>META-INF/**</exclude>
-                                    </excludes>
-                                </filter>
-                            </filters>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-shade-plugin</artifactId>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>shade</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <filters>-->
+<!--                                <filter>-->
+<!--                                    <artifact>commons-*:*</artifact>-->
+<!--                                    <excludes>-->
+<!--                                        <exclude>META-INF/**</exclude>-->
+<!--                                    </excludes>-->
+<!--                                </filter>-->
+<!--                                <filter>-->
+<!--                                    <artifact>org.*:*</artifact>-->
+<!--                                    <excludes>-->
+<!--                                        <exclude>META-INF/**</exclude>-->
+<!--                                        <exclude>org/sonar/api/batch/sensor/**</exclude>-->
+<!--                                    </excludes>-->
+<!--                                </filter>-->
+<!--                                <filter>-->
+<!--                                    <artifact>com.*:*</artifact>-->
+<!--                                    <excludes>-->
+<!--                                        <exclude>META-INF/**</exclude>-->
+<!--                                    </excludes>-->
+<!--                                </filter>-->
+<!--                            </filters>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -151,5 +149,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

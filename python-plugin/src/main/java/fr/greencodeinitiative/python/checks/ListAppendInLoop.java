@@ -20,7 +20,7 @@ import org.sonar.plugins.python.api.tree.*;
                 "ecocode"})
 public class ListAppendInLoop extends PythonSubscriptionCheck {
 
-    public static final String RULE_KEY = "EBOT003";
+    public static final String RULE_KEY = "EC83";
 
     public static final String RULE_NAME = "List Append In Loop";
 

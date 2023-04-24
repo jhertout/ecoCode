@@ -20,7 +20,7 @@ import org.sonar.plugins.python.api.tree.*;
                 "ecocode"})
 public class StringConcatenationJoinCheck extends PythonSubscriptionCheck {
 
-    public static final String RULE_KEY = "EBOT007";
+    public static final String RULE_KEY = "EC87";
 
     protected static final String MESSAGE_RULE = "Using `str.join()` to perform a string concatenation is not energy efficient.";
 

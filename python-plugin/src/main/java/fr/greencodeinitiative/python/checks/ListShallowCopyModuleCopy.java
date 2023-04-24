@@ -29,7 +29,7 @@ public class ListShallowCopyModuleCopy extends PythonSubscriptionCheck {
 
     public static final String RULE_NAME = "List Shallow Copy - Module copy";
 
-    public static final String RULE_KEY = "EBOT001";
+    public static final String RULE_KEY = "EC81";
 
     protected static final String FUNCTION_TO_CHECK = "copy";
     protected static final String MODULE_TO_CHECK = "copy";

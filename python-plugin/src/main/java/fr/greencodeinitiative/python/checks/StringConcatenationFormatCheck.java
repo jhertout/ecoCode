@@ -21,7 +21,7 @@ import org.sonar.plugins.python.api.tree.*;
                 "ecocode"})
 public class StringConcatenationFormatCheck extends PythonSubscriptionCheck {
 
-    public static final String RULE_KEY = "EBOT005";
+    public static final String RULE_KEY = "EC85";
 
     protected static final String MESSAGE_RULE = "Using `str.format()` to perform a string concatenation is not energy efficient.";
 

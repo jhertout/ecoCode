@@ -27,7 +27,7 @@ public class ListDeepCopyWarning extends PythonSubscriptionCheck {
 
     protected static final String MESSAGE_RULE = "Be sure a deep copy is required, using `copy.deepcopy(x)` of `module copy` to perform a simple shallow copy of a list is not energy efficient.";
 
-    public static final String RULE_KEY = "EBOT002";
+    public static final String RULE_KEY = "EC82";
 
     public static final String RULE_NAME = "List Deep Copy Warning";
 

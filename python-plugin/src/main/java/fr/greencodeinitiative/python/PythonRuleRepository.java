@@ -20,6 +20,7 @@
 package fr.greencodeinitiative.python;
 
 import fr.greencodeinitiative.python.checks.*;
+import org.sonar.api.rules.RuleType;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinitionAnnotationLoader;
 import org.sonar.plugins.python.api.PythonCustomRuleRepository;
@@ -29,26 +30,29 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PythonRuleRepository implements RulesDefinition, PythonCustomRuleRepository {
 
     public static final String LANGUAGE = "py";
-    public static final String NAME = "Green Code Initiative";
+    public static final String NAME = "ecoCode";
     public static final String RESOURCE_BASE_PATH = "/fr/greencodeinitiative/l10n/python/rules/python/";
-    public static final String REPOSITORY_KEY = "gci-python";
+    public static final String REPOSITORY_KEY = "ecocode-python";
 
     @Override
     public void define(Context context) {
         NewRepository repository = context.createRepository(repositoryKey(), LANGUAGE).setName(NAME);
 
         new RulesDefinitionAnnotationLoader().load(repository, checkClasses().toArray(new Class[]{}));
-
         // technical debt
         Map<String, String> remediationCosts = new HashMap<>();
         remediationCosts.put(AvoidSQLRequestInLoop.RULE_KEY, "10min");
         remediationCosts.put(AvoidFullSQLRequest.RULE_KEY, "20min");
         repository.rules().forEach(rule -> {
+            rule.setType(RuleType.CODE_SMELL);
             String debt = remediationCosts.get(rule.key());
 
             // TODO DDC : create support to use org.apache.commons.lang.StringUtils

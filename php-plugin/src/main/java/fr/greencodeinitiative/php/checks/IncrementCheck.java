@@ -27,15 +27,18 @@ import org.sonar.check.Rule;
 import org.sonar.plugins.php.api.tree.Tree;
 import org.sonar.plugins.php.api.tree.Tree.Kind;
 import org.sonar.plugins.php.api.visitors.PHPSubscriptionCheck;
+import org.sonarsource.analyzer.commons.annotations.DeprecatedRuleKey;
 
 @Rule(
-        key = "S67",
-        name = "Developpement",
+        key = IncrementCheck.RULE_KEY,
+        name = IncrementCheck.ERROR_MESSAGE,
         description = IncrementCheck.ERROR_MESSAGE,
         priority = Priority.MINOR,
-        tags = {"bug"})
+        tags = {"bug", "eco-design", "ecocode"})
+@DeprecatedRuleKey(repositoryKey = "gci-php", ruleKey = "S67")
 public class IncrementCheck extends PHPSubscriptionCheck {
 
+    public static final String RULE_KEY = "EC67";
     public static final String ERROR_MESSAGE = "Remove the usage of $i++. prefer ++$i";
 
     @Override

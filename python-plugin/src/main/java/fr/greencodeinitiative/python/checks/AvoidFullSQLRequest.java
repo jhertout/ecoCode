@@ -14,16 +14,18 @@ import org.sonar.plugins.python.api.SubscriptionContext;
 import org.sonar.plugins.python.api.tree.StringElement;
 import org.sonar.plugins.python.api.tree.StringLiteral;
 import org.sonar.plugins.python.api.tree.Tree;
+import org.sonarsource.analyzer.commons.annotations.DeprecatedRuleKey;
 
 @Rule(
         key = AvoidFullSQLRequest.RULE_KEY,
         name = AvoidFullSQLRequest.MESSAGERULE,
         description = AvoidFullSQLRequest.MESSAGERULE,
         priority = Priority.MINOR,
-        tags = {"bug", "eco-design"})
+        tags = {"bug", "eco-design", "ecocode"})
+@DeprecatedRuleKey(repositoryKey = "gci-python", ruleKey = "S74")
 public class AvoidFullSQLRequest extends PythonSubscriptionCheck {
 
-    public static final String RULE_KEY = "S74";
+    public static final String RULE_KEY = "EC74";
 
     protected static final String MESSAGERULE = "Don't use the query SELECT * FROM";
 

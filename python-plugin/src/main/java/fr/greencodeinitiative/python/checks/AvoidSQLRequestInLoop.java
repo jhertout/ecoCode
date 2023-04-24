@@ -18,16 +18,18 @@ import org.sonar.plugins.python.api.tree.FileInput;
 import org.sonar.plugins.python.api.tree.Name;
 import org.sonar.plugins.python.api.tree.QualifiedExpression;
 import org.sonar.plugins.python.api.tree.Tree;
+import org.sonarsource.analyzer.commons.annotations.DeprecatedRuleKey;
 
 @Rule(
         key = AvoidSQLRequestInLoop.RULE_KEY,
         name = "Avoid SQL request in loop",
         description = AvoidSQLRequestInLoop.MESSAGE_RULE,
         priority = Priority.MINOR,
-        tags = {"bug", "eco-design"})
+        tags = {"bug", "eco-design", "ecocode"})
+@DeprecatedRuleKey(repositoryKey = "gci-python", ruleKey = "S72")
 public class AvoidSQLRequestInLoop extends PythonSubscriptionCheck {
 
-    public static final String RULE_KEY = "S72";
+    public static final String RULE_KEY = "EC72";
 
     // TODO: Handle ORM lib
     private static final List<String> SQL_LIBS = Arrays.asList("cx_Oracle", "mysql.connector", "psycopg2", "pymssql", "pyodbc", "sqlite3");
