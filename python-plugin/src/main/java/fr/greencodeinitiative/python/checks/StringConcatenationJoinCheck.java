@@ -60,15 +60,34 @@ public class StringConcatenationJoinCheck extends PythonSubscriptionCheck {
                             StringElement element = stringLiteral.stringElements().get(0);
                             if (element.value().replaceAll("^\"|\"$", "").isEmpty()) {
                                 //here we have "".join()
-                                ctx.addIssue(callExpression, MESSAGE_RULE);
+                                if (callExpression.arguments().size() == 1) {
+                                    ctx.addIssue(callExpression, MESSAGE_RULE);
+                                }
                             }
                         }
                     }
                 }
             }
-        } else {
-            // If I cannot check the caller type
-            // I will not be able to determine it's value and therefore if it is empty
+        } else if (TreeHelper.getMethodName(callExpression).equals(FUNCTION_TO_CHECK)) {
+            //join method is called
+            if (callExpression.callee().is(Tree.Kind.QUALIFIED_EXPR)) {
+                //here is str.join()
+                if (callExpression.callee().is(Tree.Kind.STRING_LITERAL)) {
+                    StringLiteral stringLiteral = (StringLiteral) callExpression.callee();
+                    if (!stringLiteral.stringElements().isEmpty()) {
+                        if (stringLiteral.stringElements().get(0).is(Tree.Kind.STRING_ELEMENT)) {
+                            //check if the caller of the join function is an Empty String
+                            StringElement element = stringLiteral.stringElements().get(0);
+                            if (element.value().replaceAll("^\"|\"$", "").isEmpty()) {
+                                //here we have "".join()
+                                if (callExpression.arguments().size() == 1) {
+                                    ctx.addIssue(callExpression, MESSAGE_RULE);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

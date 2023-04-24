@@ -10,3 +10,9 @@ str5 = "".join(("a","b")) # Noncompliant {{Using `str.join()` to perform a strin
 
 arr = ["1", "2","3"]
 str6 = "".join(arr) # Noncompliant {{Using `str.join()` to perform a string concatenation is not energy efficient.}}
+
+"".join(("a","b")) # Noncompliant {{Using `str.join()` to perform a string concatenation is not energy efficient.}}
+
+"".join(("a","b","c")) # Noncompliant {{Using `str.join()` to perform a string concatenation is not energy efficient.}}
+
+"toto".join(("a","b","c"))
