@@ -41,7 +41,6 @@ public class ListShallowCopyModuleCopy extends PythonSubscriptionCheck {
      * Register ARG_LIST NODE to check if the first argument of the function is a list
      *
      * @param context The context of the analyser
-     *
      */
     @Override
     public void initialize(Context context) {
@@ -107,29 +106,29 @@ public class ListShallowCopyModuleCopy extends PythonSubscriptionCheck {
                     Argument argument = argumentList.arguments().get(0);
                     if (argument.is(Tree.Kind.REGULAR_ARGUMENT)) {
                         RegularArgument regularArgument = (RegularArgument) argument;
-
                         //Check the argument, is it a Variable ?
                         if (regularArgument.expression().is(Tree.Kind.NAME)) {
                             Name name = ((Name) regularArgument.expression());
                             if (name.isVariable()) {
-                                for (Usage usage : name.symbol().usages()) {
-                                    if (usage.kind().equals(Usage.Kind.ASSIGNMENT_LHS)) {
-                                        //Check Parent recursively to know if the Variable is a list
-                                        checkParent(context, argumentList.parent(), usage.tree());
+                                if (name.type().mustBeOrExtend("list")) {
+                                    context.addIssue(argumentList.parent(), ListShallowCopyModuleCopy.MESSAGE_RULE);
+                                } else {
+                                    for (Usage usage : name.symbol().usages()) {
+                                        if (usage.kind().equals(Usage.Kind.ASSIGNMENT_LHS)) {
+                                            //Check Parent recursively to know if the Variable is a list
+                                            checkParent(context, argumentList.parent(), usage.tree());
 
+                                        }
                                     }
                                 }
                             }
-
-                        //Check the argument, is it an Expression ?
+                            //Check the argument, is it an Expression ?
                         } else if (regularArgument.expression().is(Tree.Kind.CALL_EXPR)) {
                             //Check Parent recursively to check if the expression return a list
                             checkParent(context, argumentList.parent(), regularArgument.expression());
-
                         } else {
                             System.out.println("not the write type :: " + regularArgument.expression().getKind().name());
                         }
-
                     } else {
                         System.out.println("nothing  " + argument.getKind());
                     }
@@ -143,9 +142,9 @@ public class ListShallowCopyModuleCopy extends PythonSubscriptionCheck {
     /**
      * Recursive Method checking the type of the argument of the function
      *
-     * @param ctx The context that subscribes to the ARG_LIST node
+     * @param ctx        The context that subscribes to the ARG_LIST node
      * @param expression the expression that needs to be reported
-     * @param tree the tree containing the argument member
+     * @param tree       the tree containing the argument member
      */
     private void checkParent(SubscriptionContext ctx, Tree expression, Tree tree) {
         if (tree.parent().is(Tree.Kind.ASSIGNMENT_STMT)) {

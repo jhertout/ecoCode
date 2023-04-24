@@ -51,3 +51,10 @@ object_copy2 = copy.deepcopy(object2) # NO issue
 
 object3 = TestObject("test 1", "test 2")
 other_list = object3.deepcopy([1, 2]) # NO issue
+
+it = [2,4,6,8]
+
+def test(value:list):
+    ret=copy.deepcopy(value) # Noncompliant {{Be sure a deep copy is required, using `copy.deepcopy(x)` of `module copy` to perform a simple shallow copy of a list is not energy efficient.}}
+    return ret
+print(test(it))

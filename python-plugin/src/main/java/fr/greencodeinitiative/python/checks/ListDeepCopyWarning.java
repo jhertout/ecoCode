@@ -121,12 +121,16 @@ public class ListDeepCopyWarning extends PythonSubscriptionCheck {
                         if (regularArgument.expression().is(Tree.Kind.NAME)) {
                             Name name = ((Name) regularArgument.expression());
                             if (name.isVariable()) {
-                                for (Usage usage : name.symbol().usages()) {
-                                    if (usage.kind().equals(Usage.Kind.ASSIGNMENT_LHS)) {
-                                        /*
-                                         * Check Parent recursively to know if the Variable is a list
-                                         */
-                                        checkParent(context, argumentList.parent(), usage.tree());
+                                if (name.type().mustBeOrExtend("list")) {
+                                    context.addIssue(argumentList.parent(), MESSAGE_RULE);
+                                } else {
+                                    for (Usage usage : name.symbol().usages()) {
+                                        if (usage.kind().equals(Usage.Kind.ASSIGNMENT_LHS)) {
+                                            /*
+                                             * Check Parent recursively to know if the Variable is a list
+                                             */
+                                            checkParent(context, argumentList.parent(), usage.tree());
+                                        }
                                     }
                                 }
                             }
