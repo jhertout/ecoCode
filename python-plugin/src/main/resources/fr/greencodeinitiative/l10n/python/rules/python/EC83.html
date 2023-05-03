@@ -1,16 +1,54 @@
 <p>Using <code>list.append(x)</code> within a loop to copy a list is not
     energy efficient.</p>
-<p>Prefer the usage of <code>list.copy()</code> which is more energy friendly.</p>
-<h2>Noncompliant Code Example</h2>
+<p>Prefer the usage of native methods which are more energy friendly.</p>
+<h2>To Copy</h2>
+<h3>Noncompliant Code Example</h3>
 <pre>
     list = [1, 2, 3, 4, 5]
     new_list = []
     for item in list:
         new_list.append(item)
 </pre>
-<h2>Compliant Solution</h2>
+<h3>Compliant Solution</h3>
 <pre>
     list = [1, 2, 3, 4, 5]
     new_list = []
     new_list = list.copy()
+</pre>
+<h2>To Map</h2>
+<h3>Noncompliant Code Example</h3>
+<pre>
+    list = [1, 2, 3, 4, 5]
+    new_list = []
+    for item in list:
+        new_list.append(item)
+</pre>
+<h3>Compliant Solution</h3>
+<pre>
+    def square(number):
+        return number ** 2
+
+    list = [1, 2, 3, 4, 5]
+    new_list = list(map(square, list))
+</pre>
+<h2>To Filter</h2>
+<h3>Noncompliant Code Example</h3>
+<pre>
+    list = [1, 2, 3, 4, 5]
+    new_list = []
+    for item in list:
+    if i % 2 == 0 :
+        print(i,end=' ' )
+        new_list.append(item)
+</pre>
+<h3>Compliant Solution</h3>
+<pre>
+    list = [1, 2, 3, 4, 5]
+    def check_score(number):
+        if number >=80:
+            return True
+        return False
+
+    percentage_score = filter(check_score, list)
+    new_list = list(percentage_score)
 </pre>
