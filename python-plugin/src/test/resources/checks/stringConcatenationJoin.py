@@ -15,4 +15,4 @@ str6 = "".join(arr) # Noncompliant {{Using `str.join()` to perform a string conc
 
 "".join(("a","b","c")) # Noncompliant {{Using `str.join()` to perform a string concatenation is not energy efficient.}}
 
-"toto".join(("a","b","c"))
+"text".join(("a","b","c"))
