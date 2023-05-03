@@ -20,7 +20,7 @@ import org.sonar.plugins.python.api.tree.*;
 
 public class SlotsCheck extends PythonSubscriptionCheck {
 
-    protected static final String MESSAGE_RULE = "You should using Slots to explicitly declare data members and use way less memory than the default behavior based on __dict__ and __weakref__ attributes.";
+    protected static final String MESSAGE_RULE = "You should use Slots to explicitly declare data members and use way less memory than the default behavior based on __dict__ and __weakref__ attributes.";
 
     public static final String RULE_KEY = "EC88";
 
@@ -49,13 +49,7 @@ public class SlotsCheck extends PythonSubscriptionCheck {
                                     if (argument.is(Tree.Kind.REGULAR_ARGUMENT)) {
                                         RegularArgument arg = (RegularArgument) argument;
                                         if (arg.keywordArgument().name().equals("slots")) {
-                                            if (arg.expression().is(Tree.Kind.NAME)) {
-                                                Name name = (Name) arg.expression();
-                                                if (name.name().equals("True")) {
-                                                    //dataclass slot is present
-                                                    isDataClassSlotPresent = true;
-                                                }
-                                            }
+                                            isDataClassSlotPresent = true;
                                         }
                                     }
                                 }

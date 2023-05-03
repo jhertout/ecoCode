@@ -3,7 +3,7 @@ package fr.greencodeinitiative.python.checks;
 import org.junit.Test;
 import org.sonar.python.checks.utils.PythonCheckVerifier;
 
-public class AvoidNotUsingSlots {
+public class PreferUsingSlots {
 
     @Test
     public void test() {
