@@ -70,33 +70,36 @@ public class PythonRuleRepository implements RulesDefinition, PythonCustomRuleRe
         // HTML description
         repository.rules().forEach(rule ->
                 rule.setHtmlDescription(loadResource(RESOURCE_BASE_PATH + rule.key() + ".html")));
-
         repository.done();
-    }
+  }
+
+  @Override
+  public List<Class> checkClasses() {
+    return Arrays.asList(
+            AvoidDoubleQuoteCheck.class,
+            AvoidGettersAndSetters.class,
+            AvoidGlobalVariableInFunctionCheck.class,
+            AvoidSQLRequestInLoop.class,
+            AvoidTryCatchFinallyCheck.class,
+            AvoidUnoptimizedVectorImagesCheck.class,
+            NoFunctionCallWhenDeclaringForLoop.class,
+            AvoidFullSQLRequest.class,
+            AvoidListComprehensionInIterations.class,
+            DetectUnoptimizedImageFormat.class,
+            ListShallowCopyModuleCopy.class,
+            ListDeepCopyWarning.class,
+            ListAppendInLoop.class,
+            ListComprehension.class,
+            StringConcatenationFormatCheck.class,
+            StringConcatenationModuloCheck.class,
+            StringConcatenationJoinCheck.class,
+            SlotsCheck.class
+    );
+  }
 
     @Override
     public String repositoryKey() {
         return REPOSITORY_KEY;
-    }
-
-    @Override
-    public List<Class> checkClasses() {
-        return Arrays.asList(
-                AvoidGettersAndSetters.class,
-                AvoidGlobalVariableInFunctionCheck.class,
-                AvoidSQLRequestInLoop.class,
-                AvoidTryCatchFinallyCheck.class,
-                NoFunctionCallWhenDeclaringForLoop.class,
-                AvoidFullSQLRequest.class,
-                ListShallowCopyModuleCopy.class,
-                ListDeepCopyWarning.class,
-                ListAppendInLoop.class,
-                ListComprehension.class,
-                StringConcatenationFormatCheck.class,
-                StringConcatenationModuloCheck.class,
-                StringConcatenationJoinCheck.class,
-                SlotsCheck.class
-        );
     }
 
     private String loadResource(String path) {
